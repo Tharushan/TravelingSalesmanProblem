@@ -4,7 +4,10 @@
   "description": "Simple API that computes an optimized itinerary solving the [Traveling Salesman Problem](https://developers.google.com/optimization/routing/tsp/tsp).",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "npx eslint .",
+    "lintfix": "npx eslint . --fix",
+    "precommit": "npm run lint"
   },
   "repository": {
     "type": "git",
@@ -19,8 +22,20 @@
   "homepage": "https://github.com/Tharushan/TravelingSalesmanProblem#readme",
   "dependencies": {
     "axios": "^0.19.0",
+    "body-parser": "^1.19.0",
     "config": "^3.1.0",
     "express": "^4.17.1",
     "lodash": "^4.17.11"
+  },
+  "devDependencies": {
+    "eslint": "^6.0.1",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-import": "^2.18.0",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-react": "^7.14.2",
+    "husky": "^2.5.0",
+    "prettier": "^1.18.2"
   }
 }
