@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "npx eslint .",
-    "lintfix": "npx eslint . --fix",
+    "lint": "npx eslint src index.js",
+    "lintfix": "npx eslint src index.js --fix",
     "precommit": "npm run lint"
   },
   "repository": {

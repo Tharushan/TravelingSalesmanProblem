@@ -2,7 +2,7 @@ const app = require('express')();
 const bodyParser = require('body-parser');
 const { port, host } = require('config');
 
-const routeOptimizer = require('./routes/routeOptimizer');
+const routeOptimizer = require('./src/routes/routeOptimizer');
 
 app.use(bodyParser.json());
 app.use(
