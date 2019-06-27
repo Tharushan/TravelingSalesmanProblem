@@ -4,7 +4,7 @@
   "description": "Simple API that computes an optimized itinerary solving the [Traveling Salesman Problem](https://developers.google.com/optimization/routing/tsp/tsp).",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "NODE_ENV=test npx mocha -R spec --recursive tests",
     "lint": "npx eslint src index.js",
     "lintfix": "npx eslint src index.js --fix",
     "precommit": "npm run lint"
@@ -25,6 +25,7 @@
     "body-parser": "^1.19.0",
     "config": "^3.1.0",
     "express": "^4.17.1",
+    "jjv": "^1.0.2",
     "lodash": "^4.17.11"
   },
   "devDependencies": {
@@ -36,6 +37,9 @@
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "^7.14.2",
     "husky": "^2.5.0",
-    "prettier": "^1.18.2"
+    "mocha": "^6.1.4",
+    "prettier": "^1.18.2",
+    "should": "^13.2.3",
+    "sinon": "^7.3.2"
   }
 }
