@@ -93,9 +93,7 @@ class RouteOptimizerController {
           endAt: startAt + _.parseInt(task.duration) * 60
         });
         acc.totalTime =
-          acc.totalTime +
-          _.parseInt(task.duration) * 60 +
-          _.get(current, 'travelInformation.duration.value');
+          acc.totalTime + _.parseInt(task.duration) * 60 + travelDuration;
         return acc;
       },
       {

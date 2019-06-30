@@ -62,5 +62,92 @@ describe('Unit tests', () => {
           .should.be.eql('lat,lng');
       });
     });
+
+    describe('RouteOptimizerController._orderJobs({ rows, locations })', () => {
+      it('should return value from _getClosestDestination', () => {
+        const controller = new RouteOptimizerController();
+        sinon
+          .stub(controller, '_getClosestDestination')
+          .callsFake(() => ({ index: 1 }));
+        controller
+          ._orderJobs({
+            rows: [{ elements: [] }],
+            locations: [
+              {
+                id: 1,
+                lat: 48.8623348,
+                lng: 2.3447356000000354,
+                duration: 45
+              }
+            ]
+          })
+          .should.eql([{ index: 1 }]);
+      });
+
+      it('should return empty array', () => {
+        const controller = new RouteOptimizerController();
+        controller
+          ._orderJobs({
+            rows: [],
+            locations: []
+          })
+          .should.eql([]);
+      });
+    });
+
+    describe('RouteOptimizerController._formatSchedules({ jobs, tasks, departureTime })', () => {
+      it('should return empty schedule', () => {
+        const controller = new RouteOptimizerController();
+        controller
+          ._formatSchedules({
+            jobs: [],
+            tasks: [],
+            departureTime: 1
+          })
+          .should.eql({ totalTime: 0, schedule: [] });
+      });
+
+      it('should return empty schedule', () => {
+        const controller = new RouteOptimizerController();
+        controller
+          ._formatSchedules({
+            jobs: [
+              {
+                index: 1,
+                travelInformation: { duration: { value: 120 } }
+              },
+              {
+                index: 0,
+                travelInformation: { duration: { value: 1 } }
+              }
+            ],
+            tasks: [
+              {
+                id: 1,
+                lat: 48.8623348,
+                lng: 2.3447356000000354,
+                duration: 45
+              },
+              {
+                id: 2,
+                lat: 48.7623348,
+                lng: 2.3457356000000354,
+                duration: 35
+              }
+            ],
+            departureTime: 0
+          })
+          .should.eql({
+            totalTime: 47,
+            schedule: [
+              {
+                id: 1,
+                startAt: 120,
+                endAt: 2820
+              }
+            ]
+          });
+      });
+    });
   });
 });
