@@ -10,7 +10,8 @@ validator.addSchema('routeOptimizerBody', {
       properties: {
         lat: { type: 'number' },
         lng: { type: 'number' }
-      }
+      },
+      required: ['lat', 'lng']
     },
     tasks: {
       type: 'array',
@@ -21,7 +22,8 @@ validator.addSchema('routeOptimizerBody', {
           lat: { type: 'number' },
           lng: { type: 'number' },
           duration: { type: 'number' }
-        }
+        },
+        required: ['id', 'lat', 'lng', 'duration']
       }
     }
   },
