@@ -50,7 +50,7 @@ class RouteOptimizerController {
         closestDestination.travelInformation = element;
       }
     });
-    if (_.isNil(closestDestination.index)) {
+    if (_.isNil(closestDestination.index) && !_.isEmpty(alreadyDone)) {
       // get back home
       closestDestination.index = 0;
       closestDestination.travelInformation = _.get(elements, 0);
@@ -130,9 +130,8 @@ class RouteOptimizerController {
 
       const jobs = this._orderJobs({ rows, locations });
       const schedule = this._formatSchedules({ jobs, tasks, departureTime });
-      return res.status(200).send(schedule);
+      return res.status(200).json(schedule);
     } catch (error) {
-      console.error(error);
       return res.status(500).json({ error: error.message });
     }
   }
