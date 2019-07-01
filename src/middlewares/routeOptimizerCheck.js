@@ -27,7 +27,7 @@ validator.addSchema('routeOptimizerBody', {
       }
     }
   },
-  required: ['departureTime', 'home', 'tasks']
+  required: ['home', 'tasks']
 });
 module.exports = (req, res, next) => {
   const errors = validator.validate('routeOptimizerBody', req.body);

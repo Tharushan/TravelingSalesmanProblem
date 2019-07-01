@@ -4,7 +4,8 @@
   "description": "Simple API that computes an optimized itinerary solving the [Traveling Salesman Problem](https://developers.google.com/optimization/routing/tsp/tsp).",
   "main": "index.js",
   "scripts": {
-    "start": "npx nodemon index.js",
+    "start": "NODE_ENV=production node index.js",
+    "dev": "npx nodemon index.js",
     "test": "NODE_ENV=test npx mocha -R spec --recursive test",
     "coverage": "NODE_ENV=test npx nyc --all --reporter=text mocha -R spec --recursive test/",
     "coverage-html": "NODE_ENV=test npx nyc --all --reporter=lcov --reporter=html mocha -R mocha-silent-reporter --recursive test/",
@@ -30,7 +31,8 @@
     "config": "^3.1.0",
     "express": "^4.17.1",
     "jjv": "^1.0.2",
-    "lodash": "^4.17.11"
+    "lodash": "^4.17.11",
+    "moment": "^2.24.0"
   },
   "devDependencies": {
     "eslint": "^6.0.1",

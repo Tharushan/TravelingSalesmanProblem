@@ -32,7 +32,7 @@ describe('Unit tests', () => {
       });
     });
 
-    describe('RouteOptimizerController._getDistance({ origins, destinations, key })', () => {
+    describe('RouteOptimizerController._getDistance({ origins, destinations, key, departureTime })', () => {
       it('should call requestManager.get and return data', async () => {
         const controller = new RouteOptimizerController();
         const get = sinon
@@ -273,6 +273,30 @@ describe('Unit tests', () => {
         sinon.assert.calledOnce(json);
         _formatPosition.firstCall.args[0].should.be.eql({ lat: 1, lng: 1 });
         status.calledWith(500).should.be.true();
+        _getDistance.restore();
+      });
+
+      it('should return 400', async () => {
+        const controller = new RouteOptimizerController();
+        const status = sinon.stub();
+        const json = sinon.spy();
+        const res = { json, status };
+        status.returns(res);
+        const _getDistance = sinon
+          .stub(controller, '_getDistance')
+          .returns({ status: 'notOK' });
+        await controller.post(
+          {
+            body: {
+              departureTime: 1,
+              home: { lat: 1, lng: 1 },
+              tasks: [{ lat: 2, lng: 2 }]
+            }
+          },
+          res
+        );
+        sinon.assert.calledOnce(json);
+        status.calledWith(400).should.be.true();
         _getDistance.restore();
       });
     });

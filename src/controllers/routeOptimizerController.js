@@ -1,6 +1,7 @@
 const axios = require('axios');
 const _ = require('lodash');
 const config = require('config');
+const moment = require('moment');
 
 class RouteOptimizerController {
   get config() {
@@ -17,8 +18,8 @@ class RouteOptimizerController {
     return this._requestManager;
   }
 
-  async _getDistance({ origins, destinations, key }) {
-    const googleMapDistance = `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${origins}&destinations=${destinations}&key=${key}`;
+  async _getDistance({ origins, destinations, key, departureTime }) {
+    const googleMapDistance = `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${origins}&destinations=${destinations}&key=${key}&departure_time=${departureTime}`;
     try {
       const { data } = await this.requestManager.get(googleMapDistance);
       return data;
@@ -110,7 +111,20 @@ class RouteOptimizerController {
   }
 
   async post(req, res) {
-    const { departureTime, home, tasks } = req.body;
+    const {
+      departureTime = moment()
+        .add(1, 'second')
+        .format('X'),
+      home,
+      tasks
+    } = req.body;
+    const departure = moment(_.parseInt(departureTime), 'X');
+
+    if (departure.isBefore(moment())) {
+      return res.status(400).json({
+        error: 'departureTime must be a date in the future or a current time.'
+      });
+    }
     const departurePosition = this._formatPosition(home);
     const tasksPositions = _.join(_.map(tasks, this._formatPosition), '|');
     const locations = [home, ...tasks];
@@ -119,7 +133,8 @@ class RouteOptimizerController {
       const { status, rows } = await this._getDistance({
         origins: `${departurePosition}|${tasksPositions}`,
         destinations: `${departurePosition}|${tasksPositions}`,
-        key: this.config.apiKey
+        key: this.config.apiKey,
+        departureTime
       });
 
       if (status !== 'OK') {
