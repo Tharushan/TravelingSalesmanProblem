@@ -136,3 +136,7 @@ curl -X POST \
 ```
 
 `departureTime` property is optional, if not provided it will use current date
+
+## Documentation
+
+Swagger documentation is available after using `npm start` on `http://localhost:8000/docs`
