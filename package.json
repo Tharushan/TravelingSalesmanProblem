@@ -32,7 +32,9 @@
     "express": "^4.17.1",
     "jjv": "^1.0.2",
     "lodash": "^4.17.11",
-    "moment": "^2.24.0"
+    "moment": "^2.24.0",
+    "swagger-jsdoc": "^3.2.9",
+    "swagger-ui-express": "^4.0.7"
   },
   "devDependencies": {
     "eslint": "^6.0.1",

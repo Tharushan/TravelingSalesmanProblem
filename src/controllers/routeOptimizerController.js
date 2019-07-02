@@ -81,17 +81,17 @@ class RouteOptimizerController {
       _.initial(jobs),
       (acc, current) => {
         const startTime =
-          _.get(_.last(acc.schedule), 'endAt') || _.parseInt(departureTime);
+          _.get(_.last(acc.schedule), 'endsAt') || _.parseInt(departureTime);
         const task = _.get(tasks, current.index - 1); // Because we don't count from home
         const travelDuration = _.get(
           current,
           'travelInformation.duration.value'
         );
-        const startAt = startTime + travelDuration;
+        const startsAt = startTime + travelDuration;
         acc.schedule.push({
           id: task.id,
-          startAt,
-          endAt: startAt + _.parseInt(task.duration) * 60
+          startsAt,
+          endsAt: startsAt + _.parseInt(task.duration) * 60
         });
         acc.totalTime =
           acc.totalTime + _.parseInt(task.duration) * 60 + travelDuration;

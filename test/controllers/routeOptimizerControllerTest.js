@@ -209,8 +209,8 @@ describe('Unit tests', () => {
             schedule: [
               {
                 id: 1,
-                startAt: 120,
-                endAt: 2820
+                startsAt: 120,
+                endsAt: 2820
               }
             ]
           });
